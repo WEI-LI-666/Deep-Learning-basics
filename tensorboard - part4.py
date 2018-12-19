@@ -9,7 +9,7 @@ import time
 
 NAME = "Cats-vs-dog-cnn-64x2-{}".format(int(time.time()))
 
-tensorboard = TensorBoard(log_dir='logs/{}'.format(NAME))
+tensorboard = TensorBoard(log_dir='../logs/{}'.format(NAME))
 
 gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
 sess= tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
