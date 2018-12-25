@@ -8,9 +8,13 @@ from tensorflow.keras.callbacks import TensorBoard
 import pickle
 import time
 
-dense_layers = [0, 1, 2]
-layer_sizes = [32, 64]
-conv_layers= [1, 2, 3]
+#dense_layers = [0, 1, 2]
+#layer_sizes = [32, 64]
+#conv_layers= [1, 2, 3]
+
+dense_layers = [1]
+layer_sizes = [64]
+conv_layers= [3]
 
 gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
 sess= tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
@@ -38,8 +42,9 @@ for dense_layer in dense_layers:
 
             model.add(Flatten())
 
-            for i in range(dense_layer-1):
-                model.add(Dense(layer_size))
+            for i in range(dense_layer):
+                #model.add(Dense(layer_size))
+                model.add(Dense(512))
                 model.add(Activation("relu"))
 
             model.add(Dense(1))
@@ -48,4 +53,4 @@ for dense_layer in dense_layers:
             model.compile(optimizer='adam', 
                         loss='binary_crossentropy', 
                         metrics=['accuracy'])
-            model.fit(X, y, batch_size=32, epochs=15, validation_split=0.1, callbacks=[tensorboard])
+            model.fit(X, y, batch_size=32, epochs=20, validation_split=0.3, callbacks=[tensorboard])
